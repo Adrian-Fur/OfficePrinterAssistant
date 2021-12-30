@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficePrinterAssistant", "OfficePrinterAssistant\OfficePrinterAssistant.csproj", "{A4226586-2B31-4AEB-8A65-9BB7656F3048}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfficePrinterAssistant", "OfficePrinterAssistant\OfficePrinterAssistant.csproj", "{A4226586-2B31-4AEB-8A65-9BB7656F3048}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficePrinterAssistant.DataAccess", "OfficePrinterAssistant.DataAccess\OfficePrinterAssistant.DataAccess.csproj", "{CE960EA1-2490-4C22-89B0-54544A58750A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A4226586-2B31-4AEB-8A65-9BB7656F3048}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4226586-2B31-4AEB-8A65-9BB7656F3048}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4226586-2B31-4AEB-8A65-9BB7656F3048}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE960EA1-2490-4C22-89B0-54544A58750A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE960EA1-2490-4C22-89B0-54544A58750A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE960EA1-2490-4C22-89B0-54544A58750A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE960EA1-2490-4C22-89B0-54544A58750A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
