@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfficePrinterAssistant", "OfficePrinterAssistant\OfficePrinterAssistant.csproj", "{A4226586-2B31-4AEB-8A65-9BB7656F3048}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficePrinterAssistant.DataAccess", "OfficePrinterAssistant.DataAccess\OfficePrinterAssistant.DataAccess.csproj", "{CE960EA1-2490-4C22-89B0-54544A58750A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfficePrinterAssistant.DataAccess", "OfficePrinterAssistant.DataAccess\OfficePrinterAssistant.DataAccess.csproj", "{CE960EA1-2490-4C22-89B0-54544A58750A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficePrinterAssistant.ApplicationServices", "OfficePrinterAssistant.ApplicationServices\OfficePrinterAssistant.ApplicationServices.csproj", "{25AF7982-FD6C-4F7A-8C70-8C5500DCD5DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CE960EA1-2490-4C22-89B0-54544A58750A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE960EA1-2490-4C22-89B0-54544A58750A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE960EA1-2490-4C22-89B0-54544A58750A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25AF7982-FD6C-4F7A-8C70-8C5500DCD5DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25AF7982-FD6C-4F7A-8C70-8C5500DCD5DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25AF7982-FD6C-4F7A-8C70-8C5500DCD5DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25AF7982-FD6C-4F7A-8C70-8C5500DCD5DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

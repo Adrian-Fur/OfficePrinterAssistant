@@ -12,6 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using OfficePrinterAssistant.DataAccess;
+using Microsoft.EntityFrameworkCore;
+using MediatR;
+using OfficePrinterAssistant.ApplicationServices.API.Domain;
 
 namespace OfficePrinterAssistant
 {
@@ -27,7 +30,11 @@ namespace OfficePrinterAssistant
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMediatR(typeof(ResponseBase<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddDbContext<PrinterAssistantDbContext>(
+                opt => opt.UseSqlServer(this.Configuration.GetConnectionString("PrinterAssistantDatabaseConnection")));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
