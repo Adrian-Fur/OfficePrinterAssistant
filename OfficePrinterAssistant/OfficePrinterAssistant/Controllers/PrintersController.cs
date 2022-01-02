@@ -2,23 +2,24 @@
 using Microsoft.AspNetCore.Mvc;
 using OfficePrinterAssistant.ApplicationServices.API.Domain;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace OfficePrinterAssistant.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class PrintersController : ControllerBase
     {
         private readonly IMediator mediator;
 
-        public UsersController(IMediator mediator)
+        public PrintersController(IMediator mediator)
         {
             this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllUsers([FromQuery] GetUsersRequest request)
+        public async Task<IActionResult> GetAllPrinters([FromQuery] GetPrintersRequest request)
         {
             var response = await this.mediator.Send(request);
             return this.Ok(response);

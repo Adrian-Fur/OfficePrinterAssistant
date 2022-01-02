@@ -7,18 +7,18 @@ namespace OfficePrinterAssistant.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class InvoicesController : ControllerBase
     {
         private readonly IMediator mediator;
 
-        public UsersController(IMediator mediator)
+        public InvoicesController(IMediator mediator)
         {
             this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllUsers([FromQuery] GetUsersRequest request)
+        public async Task<IActionResult> GetAllInvoices([FromQuery] GetInvoicesRequest request)
         {
             var response = await this.mediator.Send(request);
             return this.Ok(response);

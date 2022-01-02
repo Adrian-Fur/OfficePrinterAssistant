@@ -7,21 +7,22 @@ namespace OfficePrinterAssistant.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class SoftwareController : ControllerBase
     {
         private readonly IMediator mediator;
 
-        public UsersController(IMediator mediator)
+        public SoftwareController(IMediator mediator)
         {
             this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllUsers([FromQuery] GetUsersRequest request)
+        public async Task<IActionResult> GetAllSoftwares([FromQuery] GetSoftwaresRequest request)
         {
             var response = await this.mediator.Send(request);
             return this.Ok(response);
+
         }
     }
 }

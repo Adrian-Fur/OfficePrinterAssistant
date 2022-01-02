@@ -8,10 +8,9 @@ namespace OfficePrinterAssistant.DataAccess.Entities
         public DateTime CreateDate { get; set; }
         public DateTime PaymentDate { get; set; }
         public string PaymentMethod { get; set; }
-        public int UserId { get; set; }
 
-        public User User { get; set; }
-        public IEnumerable<InvoiceDetails> InvoiceDetails { get; set; } 
+        public virtual User User { get; set; }
+        public virtual IEnumerable<InvoiceDetails> InvoiceDetails { get; set; } 
 
     }
 }
