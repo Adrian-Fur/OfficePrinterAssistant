@@ -2,9 +2,9 @@
 using MediatR;
 using OfficePrinterAssistant.ApplicationServices.API.Domain;
 using OfficePrinterAssistant.DataAccess;
+using OfficePrinterAssistant.DataAccess.CQRS.Queries;
 using OfficePrinterAssistant.DataAccess.Entities;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,36 +12,29 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Handlers
 {
     public class GetPrintersHandler : IRequestHandler<GetPrintersRequest, GetPrintersResponse>
     {
-        private readonly IRepository<Printer> printerRepository;
         private readonly IMapper mapper;
+        private readonly IQueryExecutor queryExecutor;
 
-        public GetPrintersHandler(IRepository<Printer> printerRepository, IMapper mapper)
+        public GetPrintersHandler(IMapper mapper, IQueryExecutor queryExecutor)
         {
-            this.printerRepository = printerRepository;
             this.mapper = mapper;
+            this.queryExecutor = queryExecutor;
         }
-        public Task<GetPrintersResponse> Handle(GetPrintersRequest request, CancellationToken cancellationToken)
+        public async Task<GetPrintersResponse> Handle(GetPrintersRequest request, CancellationToken cancellationToken)
         {
-            var printers = this.printerRepository.GetAll();
-
+            var query = new GetPrintersQuery()
+            {
+                Mark = request.Mark
+            };
+            var printers = await this.queryExecutor.Execute(query);
             var mappedPrinter = this.mapper.Map<List<Domain.Models.Printer>>(printers);
-            //var domainPrinters = printers.Select(x => new Domain.Models.Printer()
-            //{
-            //    Id = x.Id,
-            //    Mark = x.Mark,
-            //    Model = x.Model
-
-            //});
 
             var response = new GetPrintersResponse()
             {
-                //Data = domainPrinters.ToList()
                 Data = mappedPrinter
             };
 
-            return Task.FromResult(response);
-
-            
+            return response;
         }
     }
 }

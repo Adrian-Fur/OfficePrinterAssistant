@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using MediatR;
 using OfficePrinterAssistant.ApplicationServices.API.Domain;
 using OfficePrinterAssistant.ApplicationServices.API.Mappings;
+using OfficePrinterAssistant.DataAccess.CQRS;
 
 namespace OfficePrinterAssistant
 {
@@ -31,6 +32,8 @@ namespace OfficePrinterAssistant
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<ICommandExecutor, CommandExecutor>();
+            services.AddTransient<IQueryExecutor, QueryExecutor>();
             services.AddAutoMapper(typeof(PrinterProfile).Assembly);
             services.AddMediatR(typeof(ResponseBase<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
