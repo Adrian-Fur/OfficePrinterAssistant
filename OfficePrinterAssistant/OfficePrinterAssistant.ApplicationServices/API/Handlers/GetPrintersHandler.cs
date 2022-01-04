@@ -3,7 +3,6 @@ using MediatR;
 using OfficePrinterAssistant.ApplicationServices.API.Domain;
 using OfficePrinterAssistant.DataAccess;
 using OfficePrinterAssistant.DataAccess.CQRS.Queries;
-using OfficePrinterAssistant.DataAccess.Entities;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

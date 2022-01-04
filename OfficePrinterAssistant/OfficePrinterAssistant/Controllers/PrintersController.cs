@@ -50,6 +50,8 @@ namespace OfficePrinterAssistant.Controllers
         [Route("{printerId}")]
         public async Task<IActionResult> UpdatePrinter([FromBody] UpdatePrinterRequest request, [FromRoute] int printerId)
         {
+          
+            request.Id = printerId;
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
@@ -58,7 +60,11 @@ namespace OfficePrinterAssistant.Controllers
         [Route("{printerId}")]
         public async Task<IActionResult> DeletePrinter([FromRoute] int printerId)
         {
-           var response = await this.mediator.Send(new DeletePrinterRequest() { PrinterId = printerId });
+            var printerToDelete = new DeletePrinterRequest()
+            {
+                PrinterId = printerId
+            };
+           var response = await this.mediator.Send(printerToDelete);
            return this.Ok(response);
         }
     }

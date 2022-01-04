@@ -8,7 +8,5 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Domain
         public string Model { get; set; }
         public string SerialNumber { get; set; }
         public int UserId { get; set; }
-
-
     }
 }
