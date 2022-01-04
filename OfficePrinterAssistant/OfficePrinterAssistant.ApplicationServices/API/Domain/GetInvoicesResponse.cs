@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OfficePrinterAssistant.ApplicationServices.API.Domain
 {
-    public class GetInvoicesResponse : ResponseBase<List<Invoice>>
+    public class GetInvoicesResponse : ResponseBase<List<InvoiceDto>>
     {
 
     }

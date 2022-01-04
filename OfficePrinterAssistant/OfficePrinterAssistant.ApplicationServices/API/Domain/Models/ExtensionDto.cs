@@ -1,6 +1,6 @@
 ﻿namespace OfficePrinterAssistant.ApplicationServices.API.Domain.Models
 {
-    public class Extension
+    public class ExtensionDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

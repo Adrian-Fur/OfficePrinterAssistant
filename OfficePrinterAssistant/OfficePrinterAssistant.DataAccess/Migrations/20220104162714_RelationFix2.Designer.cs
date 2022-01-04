@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficePrinterAssistant.DataAccess;
 
 namespace OfficePrinterAssistant.DataAccess.Migrations
 {
     [DbContext(typeof(PrinterAssistantDbContext))]
-    partial class PrinterAssistantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220104162714_RelationFix2")]
+    partial class RelationFix2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +70,7 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                     b.Property<string>("PaymentMethod")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -228,9 +230,6 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("TaxNumber")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -259,7 +258,7 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
             modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.Extension", b =>
                 {
                     b.HasOne("OfficePrinterAssistant.DataAccess.Entities.Printer", "Printer")
-                        .WithMany("ExtensionsList")
+                        .WithMany()
                         .HasForeignKey("PrinterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -270,10 +269,8 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
             modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.Invoice", b =>
                 {
                     b.HasOne("OfficePrinterAssistant.DataAccess.Entities.User", "User")
-                        .WithMany("InvoicesList")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -303,7 +300,7 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
             modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.Software", b =>
                 {
                     b.HasOne("OfficePrinterAssistant.DataAccess.Entities.Printer", "Printer")
-                        .WithMany("SoftwaresList")
+                        .WithMany()
                         .HasForeignKey("PrinterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -316,17 +313,8 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                     b.Navigation("InvoiceDetails");
                 });
 
-            modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.Printer", b =>
-                {
-                    b.Navigation("ExtensionsList");
-
-                    b.Navigation("SoftwaresList");
-                });
-
             modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.User", b =>
                 {
-                    b.Navigation("InvoicesList");
-
                     b.Navigation("PrintersList");
                 });
 #pragma warning restore 612, 618

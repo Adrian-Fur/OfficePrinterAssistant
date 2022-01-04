@@ -17,12 +17,10 @@ namespace OfficePrinterAssistant.DataAccess.Entities
         [MaxLength(100)]
         public string Password { get; set; }
         public int TaxNumber { get; set; }
-        public int RoleId { get; set; }
-        public int InvoiceId { get; set; }
 
 
-        public UserRole UserRole { get; set; }
-        public virtual List<Invoice> InvoiceList { get; set; }
-        public List<Printer> PrinterList { get; set; }
+        public List<Printer> PrintersList { get; set; }
+        public List<Invoice> InvoicesList { get; set; }
+
     }
 }

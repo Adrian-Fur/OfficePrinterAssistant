@@ -21,15 +21,11 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Mappings
                 .ForMember(x => x.SerialNumber, y => y.MapFrom(z => z.SerialNumber))
                 .ForMember(x => x.UserId, y => y.MapFrom(z => z.UserId));
 
-            this.CreateMap<Printer, OfficePrinterAssistant.ApplicationServices.API.Domain.Models.Printer>()
+            this.CreateMap<Printer, OfficePrinterAssistant.ApplicationServices.API.Domain.Models.PrinterDto>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Mark, y => y.MapFrom(z => z.Mark))
                 .ForMember(x => x.Model, y => y.MapFrom(z => z.Model));
 
-            this.CreateMap<OfficePrinterAssistant.DataAccess.Entities.Printer, Printer>()
-                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
-                .ForMember(x => x.Mark, y => y.MapFrom(z => z.Mark))
-                .ForMember(x => x.Model, y => y.MapFrom(z => z.Model));
         }
     }
 }

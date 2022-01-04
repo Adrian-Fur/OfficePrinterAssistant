@@ -25,11 +25,13 @@ namespace OfficePrinterAssistant.DataAccess.Entities
         public int OverLimitPriceColor { get; set; }
         public decimal MonthlyFee { get; set; }
         public decimal PrinterPrice { get; set; }
-        public int UserId { get; set; }
 
+        public int UserId { get; set; }
         public User User { get; set; }
-        public  List<Extension> ExtensionsList { get; set; }
-        public  List<Software> SoftwareList { get; set; }
+
+        public List<Extension> ExtensionsList { get; set; }
+        public List<Software> SoftwaresList { get; set; }
+
 
     }
 }

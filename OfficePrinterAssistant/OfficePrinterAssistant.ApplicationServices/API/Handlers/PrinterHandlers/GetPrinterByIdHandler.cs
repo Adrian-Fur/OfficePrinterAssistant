@@ -26,7 +26,7 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Handlers
             };
 
             var printer = await this.queryExecutor.Execute(query);
-            var mappedPrinter = this.mapper.Map<Domain.Models.Printer>(printer);
+            var mappedPrinter = this.mapper.Map<Domain.Models.PrinterDto>(printer);
             var response = new GetPrinterByIdResponse()
             {
                 Data = mappedPrinter

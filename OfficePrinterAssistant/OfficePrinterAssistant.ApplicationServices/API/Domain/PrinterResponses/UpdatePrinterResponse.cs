@@ -2,7 +2,7 @@
 
 namespace OfficePrinterAssistant.ApplicationServices.API.Domain.PrinterResponses
 {
-    public class UpdatePrinterResponse : ResponseBase<Printer>
+    public class UpdatePrinterResponse : ResponseBase<PrinterDto>
     {
 
     }

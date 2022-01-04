@@ -26,11 +26,11 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Handlers
                 Mark = request.Mark
             };
             var printers = await this.queryExecutor.Execute(query);
-            var mappedPrinter = this.mapper.Map<List<Domain.Models.Printer>>(printers);
+            var mappedPrinters = this.mapper.Map<List<Domain.Models.PrinterDto>>(printers);
 
             var response = new GetPrintersResponse()
             {
-                Data = mappedPrinter
+                Data = mappedPrinters
             };
 
             return response;

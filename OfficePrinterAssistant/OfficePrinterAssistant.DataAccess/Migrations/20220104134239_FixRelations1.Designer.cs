@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficePrinterAssistant.DataAccess;
 
 namespace OfficePrinterAssistant.DataAccess.Migrations
 {
     [DbContext(typeof(PrinterAssistantDbContext))]
-    partial class PrinterAssistantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220104134239_FixRelations1")]
+    partial class FixRelations1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +70,7 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                     b.Property<string>("PaymentMethod")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -214,6 +216,9 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("InvoiceId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -227,6 +232,9 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.Property<int>("TaxNumber")
                         .HasColumnType("int");
@@ -253,6 +261,9 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("UserRoles");
                 });
 
@@ -270,10 +281,8 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
             modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.Invoice", b =>
                 {
                     b.HasOne("OfficePrinterAssistant.DataAccess.Entities.User", "User")
-                        .WithMany("InvoicesList")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("InvoiceList")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -303,12 +312,21 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
             modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.Software", b =>
                 {
                     b.HasOne("OfficePrinterAssistant.DataAccess.Entities.Printer", "Printer")
-                        .WithMany("SoftwaresList")
+                        .WithMany("SoftwareList")
                         .HasForeignKey("PrinterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Printer");
+                });
+
+            modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.UserRole", b =>
+                {
+                    b.HasOne("OfficePrinterAssistant.DataAccess.Entities.User", null)
+                        .WithOne("UserRole")
+                        .HasForeignKey("OfficePrinterAssistant.DataAccess.Entities.UserRole", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.Invoice", b =>
@@ -320,14 +338,16 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                 {
                     b.Navigation("ExtensionsList");
 
-                    b.Navigation("SoftwaresList");
+                    b.Navigation("SoftwareList");
                 });
 
             modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.User", b =>
                 {
-                    b.Navigation("InvoicesList");
+                    b.Navigation("InvoiceList");
 
                     b.Navigation("PrintersList");
+
+                    b.Navigation("UserRole");
                 });
 #pragma warning restore 612, 618
         }
