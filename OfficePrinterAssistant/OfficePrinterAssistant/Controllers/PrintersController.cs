@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OfficePrinterAssistant.ApplicationServices.API.Domain;
+using OfficePrinterAssistant.ApplicationServices.API.Domain.PrinterRequests;
 using System.Threading.Tasks;
 
 namespace OfficePrinterAssistant.Controllers
@@ -24,6 +25,19 @@ namespace OfficePrinterAssistant.Controllers
             return this.Ok(response);
         }
 
+        [HttpGet]
+        [Route("{printerId}")]
+        public async Task<IActionResult> GetPrinterById([FromRoute] int printerId)
+        {
+            var request = new GetPrinterByIdRequest()
+            {
+                PrinterId = printerId
+            };
+
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
+
         [HttpPost]
         [Route("")]
         public async Task<IActionResult> AddPrinter([FromBody] AddPrinterRequest request)
@@ -31,5 +45,22 @@ namespace OfficePrinterAssistant.Controllers
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
+
+        [HttpPut]
+        [Route("{printerId}")]
+        public async Task<IActionResult> UpdatePrinter([FromBody] UpdatePrinterRequest request, [FromRoute] int printerId)
+        {
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
+
+        [HttpDelete]
+        [Route("{printerId}")]
+        public async Task<IActionResult> DeletePrinter([FromRoute] int printerId)
+        {
+           var response = await this.mediator.Send(new DeletePrinterRequest() { PrinterId = printerId });
+           return this.Ok(response);
+        }
     }
 }
+
