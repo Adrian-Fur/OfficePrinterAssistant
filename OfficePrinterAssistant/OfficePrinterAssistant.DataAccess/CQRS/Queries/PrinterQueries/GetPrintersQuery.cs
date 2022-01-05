@@ -14,9 +14,16 @@ namespace OfficePrinterAssistant.DataAccess.CQRS.Queries
         {
             if(this.Mark == null)
             {
-                return context.Printers.ToListAsync();
+                return context.Printers
+                    .Include(x => x.ExtensionsList)
+                    .Include(x => x.SoftwaresList)
+                    .ToListAsync();
             }
-            return context.Printers.Where(x => x.Mark == this.Mark).ToListAsync();
+            return context.Printers
+                .Include(x => x.ExtensionsList)
+                .Include(x => x.SoftwaresList)
+                .Where(x => x.Mark == this.Mark)
+                .ToListAsync();
         }
     }
 }
