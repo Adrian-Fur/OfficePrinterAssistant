@@ -17,6 +17,8 @@ using MediatR;
 using OfficePrinterAssistant.ApplicationServices.API.Domain;
 using OfficePrinterAssistant.ApplicationServices.API.Mappings;
 using OfficePrinterAssistant.DataAccess.CQRS;
+using FluentValidation.AspNetCore;
+using OfficePrinterAssistant.ApplicationServices.API.Validators;
 
 namespace OfficePrinterAssistant
 {
@@ -32,6 +34,11 @@ namespace OfficePrinterAssistant
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvcCore().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddPrinterRequestValidator>());
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
             services.AddTransient<ICommandExecutor, CommandExecutor>();
             services.AddTransient<IQueryExecutor, QueryExecutor>();
             services.AddAutoMapper(typeof(PrinterProfile).Assembly);

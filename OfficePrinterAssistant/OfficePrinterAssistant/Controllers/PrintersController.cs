@@ -2,70 +2,62 @@
 using Microsoft.AspNetCore.Mvc;
 using OfficePrinterAssistant.ApplicationServices.API.Domain;
 using OfficePrinterAssistant.ApplicationServices.API.Domain.PrinterRequests;
+using OfficePrinterAssistant.ApplicationServices.API.Domain.PrinterResponses;
 using System.Threading.Tasks;
 
 namespace OfficePrinterAssistant.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PrintersController : ControllerBase
+    public class PrintersController : ApiControllerBase
     {
-        private readonly IMediator mediator;
-
-        public PrintersController(IMediator mediator)
+        public PrintersController(IMediator mediator) : base(mediator)
         {
-            this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllPrinters([FromQuery] GetPrintersRequest request)
+        public Task<IActionResult> GetAllPrinters([FromQuery] GetPrintersRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetPrintersRequest, GetPrintersResponse>(request);
         }
 
         [HttpGet]
         [Route("{printerId}")]
-        public async Task<IActionResult> GetPrinterById([FromRoute] int printerId)
+        public Task<IActionResult> GetPrinterById([FromRoute] int printerId)
         {
             var request = new GetPrinterByIdRequest()
             {
                 PrinterId = printerId
             };
 
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetPrinterByIdRequest, GetPrinterByIdResponse>(request);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> AddPrinter([FromBody] AddPrinterRequest request)
+        public Task<IActionResult> AddPrinter([FromBody] AddPrinterRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<AddPrinterRequest, AddPrinterResponse>(request);
         }
 
         [HttpPut]
         [Route("{printerId}")]
-        public async Task<IActionResult> UpdatePrinter([FromBody] UpdatePrinterRequest request, [FromRoute] int printerId)
+        public Task<IActionResult> UpdatePrinter([FromBody] UpdatePrinterRequest request, [FromRoute] int printerId)
         {
-          
             request.Id = printerId;
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<UpdatePrinterRequest, UpdatePrinterResponse>(request);
         }
 
         [HttpDelete]
         [Route("{printerId}")]
-        public async Task<IActionResult> DeletePrinter([FromRoute] int printerId)
+        public Task<IActionResult> DeletePrinter([FromRoute] int printerId)
         {
-            var printerToDelete = new DeletePrinterRequest()
+            var request = new DeletePrinterRequest()
             {
                 PrinterId = printerId
             };
-           var response = await this.mediator.Send(printerToDelete);
-           return this.Ok(response);
+            return this.HandleRequest<DeletePrinterRequest, DeletePrinterResponse>(request);
         }
     }
 }
