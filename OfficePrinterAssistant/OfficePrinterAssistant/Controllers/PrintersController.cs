@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using OfficePrinterAssistant.ApplicationServices.API.Domain;
 using OfficePrinterAssistant.ApplicationServices.API.Domain.PrinterRequests;
 using OfficePrinterAssistant.ApplicationServices.API.Domain.PrinterResponses;
@@ -11,8 +12,9 @@ namespace OfficePrinterAssistant.Controllers
     [Route("[controller]")]
     public class PrintersController : ApiControllerBase
     {
-        public PrintersController(IMediator mediator) : base(mediator)
+        public PrintersController(IMediator mediator, ILogger<PrintersController> logger) : base(mediator)
         {
+            logger.LogInformation("Hello Printer Controller here !");
         }
 
         [HttpGet]

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using OfficePrinterAssistant.ApplicationServices.API.Domain;
+using OfficePrinterAssistant.ApplicationServices.API.ErrorHandling;
 using OfficePrinterAssistant.DataAccess;
 using OfficePrinterAssistant.DataAccess.CQRS.Queries;
 using System.Threading;
@@ -24,8 +25,14 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Handlers
             {
                 Id = request.PrinterId
             };
-
             var printer = await this.queryExecutor.Execute(query);
+            if(printer == null)
+            {
+                return new GetPrinterByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
             var mappedPrinter = this.mapper.Map<Domain.Models.PrinterDto>(printer);
             var response = new GetPrinterByIdResponse()
             {

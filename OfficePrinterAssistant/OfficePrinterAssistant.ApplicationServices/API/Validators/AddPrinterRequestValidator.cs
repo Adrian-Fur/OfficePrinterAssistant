@@ -7,7 +7,7 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Validators
     {
         public AddPrinterRequestValidator()
         {
-            this.RuleFor(x => x.SerialNumber).Length(1, 10);
+            this.RuleFor(x => x.SerialNumber).Length(1, 10).WithMessage("Range Should be bettween 1 - 10");
         }
     }
 }
