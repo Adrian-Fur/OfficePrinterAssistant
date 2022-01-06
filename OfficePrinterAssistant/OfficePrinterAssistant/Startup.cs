@@ -19,6 +19,7 @@ using OfficePrinterAssistant.ApplicationServices.API.Mappings;
 using OfficePrinterAssistant.DataAccess.CQRS;
 using FluentValidation.AspNetCore;
 using OfficePrinterAssistant.ApplicationServices.API.Validators;
+using OfficePrinterAssistant.ApplicationServices.Components.OpenWeather;
 
 namespace OfficePrinterAssistant
 {
@@ -41,6 +42,7 @@ namespace OfficePrinterAssistant
             });
             services.AddTransient<ICommandExecutor, CommandExecutor>();
             services.AddTransient<IQueryExecutor, QueryExecutor>();
+            services.AddTransient<IWeatherConnector, WeatherConnector>();
             services.AddAutoMapper(typeof(PrinterProfile).Assembly);
             services.AddMediatR(typeof(ResponseBase<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
