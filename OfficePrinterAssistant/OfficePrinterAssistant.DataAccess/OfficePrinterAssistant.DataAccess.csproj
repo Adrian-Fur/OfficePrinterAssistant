@@ -17,8 +17,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CQRS\Commands\UserCommands\" />
-  </ItemGroup>
-
 </Project>
