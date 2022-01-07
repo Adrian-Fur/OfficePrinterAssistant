@@ -12,14 +12,12 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Mappings
             this.CreateMap<UpdatePrinterRequest, DataAccess.Entities.Printer>()
                 .ForMember(x => x.Mark, y => y.MapFrom(z => z.Mark))
                 .ForMember(x => x.Model, y => y.MapFrom(z => z.Model))
-                .ForMember(x => x.SerialNumber, y => y.MapFrom(z => z.SerialNumber))
-                .ForMember(x => x.UserId, y => y.MapFrom(z => z.UserId));
+                .ForMember(x => x.SerialNumber, y => y.MapFrom(z => z.SerialNumber));
 
             this.CreateMap<AddPrinterRequest, DataAccess.Entities.Printer>()
                 .ForMember(x => x.Mark, y => y.MapFrom(z => z.Mark))
                 .ForMember(x => x.Model, y => y.MapFrom(z => z.Model))
-                .ForMember(x => x.SerialNumber, y => y.MapFrom(z => z.SerialNumber))
-                .ForMember(x => x.UserId, y => y.MapFrom(z => z.UserId));
+                .ForMember(x => x.SerialNumber, y => y.MapFrom(z => z.SerialNumber));
 
             this.CreateMap<Printer, OfficePrinterAssistant.ApplicationServices.API.Domain.Models.PrinterDto>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
