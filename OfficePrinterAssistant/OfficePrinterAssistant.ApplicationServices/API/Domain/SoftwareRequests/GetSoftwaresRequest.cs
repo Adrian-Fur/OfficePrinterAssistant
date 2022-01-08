@@ -2,7 +2,7 @@
 
 namespace OfficePrinterAssistant.ApplicationServices.API.Domain
 {
-    public class GetSoftwaresRequest : IRequest<GetSoftwareResponse>
+    public class GetSoftwaresRequest : IRequest<GetSoftwaresResponse>
     {
 
     }

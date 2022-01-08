@@ -28,11 +28,10 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Handlers.ExtensionHandl
                 Parameter = extension
             };
             var extensionFromDb = await this.commandExecutor.Execute(command);
-            var response = new AddExtensionResponse()
+            return new AddExtensionResponse()
             {
-                Data = extensionFromDb
+                Data = this.mapper.Map<Domain.Models.ExtensionDto>(extensionFromDb)
             };
-            return response;
         }
     }
 }

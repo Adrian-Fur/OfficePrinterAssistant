@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OfficePrinterAssistant.ApplicationServices.API.Domain
 {
-    public class GetSoftwareResponse : ResponseBase<List<SoftwareDto>>
+    public class GetSoftwaresResponse : ResponseBase<List<SoftwareDto>>
     {
 
     }

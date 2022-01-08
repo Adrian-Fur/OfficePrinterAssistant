@@ -1,28 +1,59 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OfficePrinterAssistant.ApplicationServices.API.Domain;
+using OfficePrinterAssistant.ApplicationServices.API.Domain.SoftwareRequests;
+using OfficePrinterAssistant.ApplicationServices.API.Domain.SoftwareResponses;
 using System.Threading.Tasks;
 
 namespace OfficePrinterAssistant.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SoftwareController : ControllerBase
+    public class SoftwareController : ApiControllerBase
     {
-        private readonly IMediator mediator;
-
-        public SoftwareController(IMediator mediator)
+        public SoftwareController(IMediator mediator) : base(mediator)
         {
-            this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllSoftwares([FromQuery] GetSoftwaresRequest request)
+        public Task<IActionResult> GetAllSoftwares([FromQuery] GetSoftwaresRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetSoftwaresRequest, GetSoftwaresResponse>(request);
+        }
+        [HttpGet]
+        [Route("{softwareId}")]
+        public Task<IActionResult> GetSoftwareById([FromRoute] int softwareId)
+        {
+            var request = new GetSoftwareByIdRequest()
+            {
+                Id = softwareId
+            };
 
+            return this.HandleRequest<GetSoftwareByIdRequest, GetSoftwareByIdResponse>(request);
+        }
+        [HttpPost]
+        [Route("")]
+        public Task<IActionResult> AddSoftware([FromBody] AddSoftwareRequest request)
+        {
+            return this.HandleRequest<AddSoftwareRequest, AddSoftwareResponse>(request);
+        }
+        [HttpPut]
+        [Route("{softwareId}")]
+        public Task<IActionResult> UpdateSoftware([FromBody] UpdateSoftwareRequest request, [FromRoute] int softwareId)
+        {
+            request.Id = softwareId;
+            return this.HandleRequest<UpdateSoftwareRequest, UpdateSoftwareResponse>(request);
+        }
+        [HttpDelete]
+        [Route("{softwareId}")]
+        public Task<IActionResult> DeleteSoftware([FromRoute] int softwareId)
+        {
+            var request = new DeleteSoftwareRequest()
+            {
+                Id = softwareId
+            };
+            return this.HandleRequest<DeleteSoftwareRequest, DeleteSoftwareResponse>(request);
         }
     }
 }
