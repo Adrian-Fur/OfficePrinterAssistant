@@ -15,6 +15,7 @@ namespace OfficePrinterAssistant.Controllers
 
         public UsersController(IMediator mediator, ILogger<UsersController> logger) : base(mediator)
         {
+            logger.LogInformation("User Controller Logs");
         }
 
         [HttpGet]

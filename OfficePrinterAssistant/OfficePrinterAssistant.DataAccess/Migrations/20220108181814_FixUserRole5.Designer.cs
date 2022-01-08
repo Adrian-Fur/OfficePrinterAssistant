@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficePrinterAssistant.DataAccess;
 
 namespace OfficePrinterAssistant.DataAccess.Migrations
 {
     [DbContext(typeof(PrinterAssistantDbContext))]
-    partial class PrinterAssistantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220108181814_FixUserRole5")]
+    partial class FixUserRole5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,12 +234,7 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("int");
 
-                    b.Property<int>("UserRoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserRoleId");
 
                     b.ToTable("Users");
                 });
@@ -310,17 +307,6 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Printer");
-                });
-
-            modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.User", b =>
-                {
-                    b.HasOne("OfficePrinterAssistant.DataAccess.Entities.UserRole", "UserRole")
-                        .WithMany()
-                        .HasForeignKey("UserRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserRole");
                 });
 
             modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.Invoice", b =>

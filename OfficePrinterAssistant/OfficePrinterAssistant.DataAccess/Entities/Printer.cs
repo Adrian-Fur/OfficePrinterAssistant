@@ -6,13 +6,13 @@ namespace OfficePrinterAssistant.DataAccess.Entities
     public class Printer : EntityBase
     {
         [Required]
-        [MaxLength(100)]
+        [MaxLength(50)]
         public string Mark { get; set; }
         [Required]
-        [MaxLength(100)]
+        [MaxLength(50)]
         public string Model { get; set; }
         [Required]
-        [MaxLength(100)]
+        [MaxLength(50)]
         public string SerialNumber { get; set; }
         [Required]
         public int Counter { get; set; }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficePrinterAssistant.DataAccess;
 
 namespace OfficePrinterAssistant.DataAccess.Migrations
 {
     [DbContext(typeof(PrinterAssistantDbContext))]
-    partial class PrinterAssistantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220108174846_FixForValidation4")]
+    partial class FixForValidation4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,9 +237,12 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                     b.Property<int>("UserRoleId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserRoleId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("UserRoleId");
+                    b.HasIndex("UserRoleId1");
 
                     b.ToTable("Users");
                 });
@@ -250,7 +255,12 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -316,9 +326,7 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                 {
                     b.HasOne("OfficePrinterAssistant.DataAccess.Entities.UserRole", "UserRole")
                         .WithMany()
-                        .HasForeignKey("UserRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserRoleId1");
 
                     b.Navigation("UserRole");
                 });

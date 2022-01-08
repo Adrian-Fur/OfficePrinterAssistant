@@ -6,10 +6,10 @@ namespace OfficePrinterAssistant.DataAccess.Entities
     public class Software : EntityBase
     {
         [Required]
-        [MaxLength(100)]
+        [MaxLength(50)]
         public string Name { get; set; }
         [Required]
-        [MaxLength(100)]
+        [MaxLength(50)]
         public string LicenseNumber { get; set; }
         public DateTime LicenseExpirationDate { get; set; }
         public decimal Price { get; set; }

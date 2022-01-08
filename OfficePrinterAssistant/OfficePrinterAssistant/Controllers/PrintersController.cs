@@ -14,7 +14,7 @@ namespace OfficePrinterAssistant.Controllers
     {
         public PrintersController(IMediator mediator, ILogger<PrintersController> logger) : base(mediator)
         {
-            logger.LogInformation("Hello Printer Controller here !");
+            logger.LogInformation("Printer Controller Logs");
         }
 
         [HttpGet]

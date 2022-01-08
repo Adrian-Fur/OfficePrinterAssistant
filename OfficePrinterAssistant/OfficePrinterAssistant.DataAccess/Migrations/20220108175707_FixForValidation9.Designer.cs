@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficePrinterAssistant.DataAccess;
 
 namespace OfficePrinterAssistant.DataAccess.Migrations
 {
     [DbContext(typeof(PrinterAssistantDbContext))]
-    partial class PrinterAssistantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220108175707_FixForValidation9")]
+    partial class FixForValidation9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,12 +234,7 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("int");
 
-                    b.Property<int>("UserRoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserRoleId");
 
                     b.ToTable("Users");
                 });
@@ -250,9 +247,16 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserRoles");
                 });
@@ -312,15 +316,15 @@ namespace OfficePrinterAssistant.DataAccess.Migrations
                     b.Navigation("Printer");
                 });
 
-            modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.User", b =>
+            modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.UserRole", b =>
                 {
-                    b.HasOne("OfficePrinterAssistant.DataAccess.Entities.UserRole", "UserRole")
+                    b.HasOne("OfficePrinterAssistant.DataAccess.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserRoleId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserRole");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("OfficePrinterAssistant.DataAccess.Entities.Invoice", b =>
