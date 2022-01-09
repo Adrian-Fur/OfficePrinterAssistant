@@ -13,7 +13,6 @@ namespace OfficePrinterAssistant.DataAccess.Entities
         [Required]
         [MaxLength(50)]
         public string Email { get; set; }
-        [Required]
         [MaxLength(20)]
         public string Password { get; set; }
         [MaxLength(50)]

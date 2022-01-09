@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OfficePrinterAssistant.ApplicationServices.API.Domain.Models
 {
@@ -9,7 +10,7 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Domain.Models
         public DateTime PaymentDate { get; set; }
         public string PaymentMethod { get; set; }
 
-        public UserDto User { get; set; }
+        public List<InvoiceDetailsDto> InvoiceDetailsList { get; set; }
 
 
     }
