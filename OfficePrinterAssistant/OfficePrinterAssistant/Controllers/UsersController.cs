@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OfficePrinterAssistant.ApplicationServices.API.Domain;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace OfficePrinterAssistant.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ApiControllerBase
@@ -36,7 +38,6 @@ namespace OfficePrinterAssistant.Controllers
 
             return this.HandleRequest<GetUserByIdRequest, GetUserByIdResponse>(request);
         }
-
         [HttpPost]
         [Route("")]
         public Task<IActionResult> AddUser([FromBody] AddUserRequest request)

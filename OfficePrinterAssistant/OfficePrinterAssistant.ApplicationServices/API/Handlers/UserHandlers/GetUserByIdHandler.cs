@@ -23,7 +23,7 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Handlers.UserHandlers
         {
             var query = new GetUserQuery()
             {
-                Id = request.UserId
+                Id = request.UserId,
             };
 
             var user = await this.queryExecutor.Execute(query);

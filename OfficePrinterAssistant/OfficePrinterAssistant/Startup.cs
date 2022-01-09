@@ -20,6 +20,8 @@ using OfficePrinterAssistant.DataAccess.CQRS;
 using FluentValidation.AspNetCore;
 using OfficePrinterAssistant.ApplicationServices.API.Validators;
 using OfficePrinterAssistant.ApplicationServices.Components.OpenWeather;
+using Microsoft.AspNetCore.Authentication;
+using OfficePrinterAssistant.Authentication;
 
 namespace OfficePrinterAssistant
 {
@@ -35,6 +37,9 @@ namespace OfficePrinterAssistant
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication("BasicAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
             services.AddMvcCore().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddPrinterRequestValidator>());
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -70,7 +75,9 @@ namespace OfficePrinterAssistant
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {
