@@ -1,27 +1,60 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using OfficePrinterAssistant.ApplicationServices.API.Domain;
+using Microsoft.Extensions.Logging;
+using OfficePrinterAssistant.ApplicationServices.API.Domain.InvoiceReponses;
+using OfficePrinterAssistant.ApplicationServices.API.Domain.InvoiceRequests;
+using OfficePrinterAssistant.ApplicationServices.API.Domain.InvoiceResponses;
 using System.Threading.Tasks;
 
 namespace OfficePrinterAssistant.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class InvoicesController : ControllerBase
+    public class InvoicesController : ApiControllerBase
     {
-        private readonly IMediator mediator;
-
-        public InvoicesController(IMediator mediator)
+        public InvoicesController(IMediator mediator, ILogger<InvoicesController> logger) : base(mediator)
         {
-            this.mediator = mediator;
+            logger.LogInformation("Invoices Controller");
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllInvoices([FromQuery] GetInvoicesRequest request)
+        public Task<IActionResult> GetAllInvoices([FromQuery] GetInvoicesRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetInvoicesRequest, GetInvoicesResponse>(request);
+        }
+        [HttpGet]
+        [Route("{invoiceId}")]
+        public Task<IActionResult> GetInvoiceById([FromRoute] int invoiceId)
+        {
+            var request = new GetInvoiceByIdRequest()
+            {
+                Id = invoiceId
+            };
+            return this.HandleRequest<GetInvoiceByIdRequest, GetInvoiceByIdResponse>(request);
+        }
+        [HttpPost]
+        [Route("")]
+        public Task<IActionResult> AddInvoice([FromBody] AddInvoiceRequest request)
+        {
+            return this.HandleRequest<AddInvoiceRequest, AddInvoiceResponse>(request);
+        }
+        [HttpPut]
+        [Route("{invoiceId}")]
+        public Task<IActionResult> UpdateInvoice([FromBody] UpdateInvoiceRequest request, [FromRoute] int invoiceId)
+        {
+            request.Id = invoiceId;
+            return this.HandleRequest<UpdateInvoiceRequest, UpdateInvoiceResponse>(request);
+        }
+        [HttpDelete]
+        [Route("{invoiceId}")]
+        public Task<IActionResult> DeleteInvoice([FromRoute] int invoiceId)
+        {
+            var request = new DeleteInvoiceRequest()
+            {
+                Id = invoiceId
+            };
+            return this.HandleRequest<DeleteInvoiceRequest, DeleteInvoiceResponse>(request);
         }
     }
 }

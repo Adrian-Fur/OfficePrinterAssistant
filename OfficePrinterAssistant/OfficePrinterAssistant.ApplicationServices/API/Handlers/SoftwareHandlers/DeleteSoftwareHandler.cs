@@ -27,7 +27,6 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Handlers.SoftwareHandle
             {
                 Data = softwareFromDb
             };
-
         }
     }
 }
