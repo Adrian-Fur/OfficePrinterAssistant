@@ -38,9 +38,10 @@ namespace OfficePrinterAssistant.Controllers
 
             return this.HandleRequest<GetUserByIdRequest, GetUserByIdResponse>(request);
         }
+        [AllowAnonymous]
         [HttpPost]
         [Route("")]
-        public Task<IActionResult> AddUser([FromBody] AddUserRequest request)
+        public Task<IActionResult> CreateUser([FromBody] AddUserRequest request)
         {
             return this.HandleRequest<AddUserRequest, AddUserResponse>(request);
         }

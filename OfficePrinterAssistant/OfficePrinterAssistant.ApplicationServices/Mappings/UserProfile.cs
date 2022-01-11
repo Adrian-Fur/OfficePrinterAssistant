@@ -16,7 +16,9 @@ namespace OfficePrinterAssistant.ApplicationServices.API.Mappings
             this.CreateMap<AddUserRequest, DataAccess.Entities.User>()
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.Email, y => y.MapFrom(z => z.Email))
-                .ForMember(x => x.PhoneNumber, y =>y.MapFrom(z => z.PhoneNumber));
+                .ForMember(x => x.PhoneNumber, y =>y.MapFrom(z => z.PhoneNumber))
+                .ForMember(x => x.Password, y => y.MapFrom(z => z.Password))
+                .ForMember(x => x.TaxNumber, y => y.MapFrom(z => z.TaxNumber));
 
             this.CreateMap<User, OfficePrinterAssistant.ApplicationServices.API.Domain.Models.UserDto>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
